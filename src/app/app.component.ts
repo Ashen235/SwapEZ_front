@@ -1,13 +1,19 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { NodeManagerComponent } from './node-manager/node-manager.component';
+import { NetworkVisualizationComponent } from './network-visualization/network-visualization.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
-  standalone: true,
-  imports: [RouterOutlet],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  styleUrls: ['./app.component.scss'],
+  standalone: true,
+  imports: [
+    HttpClientModule,  // Ensure HttpClientModule is provided here
+    NodeManagerComponent,
+    NetworkVisualizationComponent
+  ]
 })
 export class AppComponent {
-  title = 'quantum-network-simulator';
+  title = 'SwapEZ';
 }

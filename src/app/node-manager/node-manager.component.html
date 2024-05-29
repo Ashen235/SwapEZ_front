@@ -1,0 +1,43 @@
+<div class="node-manager">
+  <div>
+    <label for="nodeId">Node ID:</label>
+    <input id="nodeId" [(ngModel)]="nodeId" />
+  </div>
+  <div>
+    <label for="nodeType">Node Type:</label>
+    <select id="nodeType" [(ngModel)]="nodeType">
+      <option value="endpoint">Endpoint</option>
+      <option value="repeater">Repeater</option>
+    </select>
+  </div>
+  <button (click)="addNode()">Add Node</button>
+  <button (click)="removeNode()">Remove Node</button>
+  
+  <div>
+    <label for="node1">Node 1:</label>
+    <input id="node1" [(ngModel)]="node1" />
+  </div>
+  <div>
+    <label for="node2">Node 2:</label>
+    <input id="node2" [(ngModel)]="node2" />
+  </div>
+  <div>
+    <label for="edgeCost">Edge Cost:</label>
+    <input id="edgeCost" type="number" [(ngModel)]="edgeCost" />
+  </div>
+  
+  <button (click)="addEdge()">Add Edge</button>
+  <button (click)="modifyEdge()">Modify Edge</button>
+  <button (click)="removeEdge()">Remove Edge</button>
+
+  <div>
+    <label for="endpoint1">Endpoint 1:</label>
+    <input id="endpoint1" [(ngModel)]="endpoint1" />
+  </div>
+  <div>
+    <label for="endpoint2">Endpoint 2:</label>
+    <input id="endpoint2" [(ngModel)]="endpoint2" />
+  </div>
+  <button (click)="requestEntanglement()">Request Entanglement</button>
+  
+</div>

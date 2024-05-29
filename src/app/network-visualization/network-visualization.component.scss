@@ -1,0 +1,29 @@
+/* Add your SCSS styles here */
+.network-visualization {
+  h2 {
+    margin-bottom: 10px;
+  }
+
+  svg {
+    border: 1px solid #ddd;
+    margin-bottom: 20px;
+    g text {
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+  }
+
+  div {
+    margin-bottom: 10px;
+  }
+
+  label {
+    margin-right: 5px;
+  }
+
+  button {
+    margin-right: 5px;
+  }
+}
