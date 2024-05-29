@@ -30,6 +30,16 @@ export class QuantumService {
     return this.http.post(`${this.apiUrl}/modify_edge`, { node1, node2, new_cost: newCost }, { headers });
   }
 
+  removeNode(id: string): Observable<any> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.post(`${this.apiUrl}/remove_node`, { id }, { headers });
+  }
+
+  removeEdge(node1: string, node2: string): Observable<any> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.post(`${this.apiUrl}/remove_edge`, { node1, node2 }, { headers });
+  }
+
   createEpr(node1: string, node2: string): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.post(`${this.apiUrl}/create_epr`, { node1, node2 }, { headers });

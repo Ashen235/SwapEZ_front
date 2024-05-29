@@ -48,6 +48,7 @@ export class NetworkVisualizationComponent implements AfterViewInit {
     this.networkService.edgeObservable$.subscribe(edge => this.addEdge(edge));
     this.networkService.modifyEdgeObservable$.subscribe(edge => this.modifyEdge(edge));
     this.networkService.removeEdgeObservable$.subscribe(edge => this.removeEdge(edge));
+    this.networkService.highlightPathObservable$.subscribe(path => this.highlightPath(path));
   }
 
   initializeGraph() {
@@ -175,6 +176,40 @@ export class NetworkVisualizationComponent implements AfterViewInit {
     this.updateGraph();
   }
 
+  highlightPath(path: string[]) {
+    const pathEdges = [];
+    for (let i = 0; i < path.length - 1; i++) {
+      pathEdges.push({ source: path[i], target: path[i + 1] });
+    }
+
+    const highlightOrder = this.getHighlightOrder(pathEdges);
+    console.log(highlightOrder)
+    highlightOrder.forEach((edge, index) => {
+      setTimeout(() => {
+        console.log("highlighting ", edge)
+        this.link
+          .filter(d => this.getNodeId(d.source) === edge.source && this.getNodeId(d.target) === edge.target)
+          .attr('stroke', 'lightgreen');
+      }, index * 500);
+    });
+  }
+
+  getHighlightOrder(edges: { source: string, target: string }[]): { source: string, target: string }[] {
+    const middleIndex = Math.floor(edges.length / 2);
+    const orderedEdges = [];
+
+    for (let i = 0; i <= middleIndex; i++) {
+      if (middleIndex + i < edges.length) {
+        orderedEdges.push(edges[middleIndex + i]);
+      }
+      if (middleIndex - i >= 0) {
+        orderedEdges.push(edges[middleIndex - i]);
+      }
+    }
+
+    return orderedEdges;
+  }
+
   updateGraph() {
     if (!this.simulation) {
       console.error('Simulation not initialized.');
@@ -193,7 +228,7 @@ export class NetworkVisualizationComponent implements AfterViewInit {
     this.node = this.node.data(this.nodes, (d: any) => d.id);
     this.node.exit().remove();
     this.node = this.node.enter().append('circle')
-      .attr('r', 20)
+      .attr('r', 20)  // Double the radius to double the size
       .attr('fill', d => d.type === 'endpoint' ? 'red' : 'blue')
       .call(
         d3.drag<SVGCircleElement, NodeData>()

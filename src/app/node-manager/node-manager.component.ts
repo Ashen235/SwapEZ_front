@@ -54,8 +54,16 @@ export class NodeManagerComponent implements AfterViewInit {
   }
 
   removeNode() {
-    console.log("Removing node:", this.nodeId);
-    this.netService.removeNode(this.nodeId);
+    this.quantumService.removeNode(this.nodeId).subscribe({
+      next: response => {
+        console.log(response);
+        console.log("Removing node");
+        this.netService.removeNode(this.nodeId);
+      },
+      error: error => {
+        console.error('There was an error!', error);
+      }
+    });
   }
 
   addEdge() {
@@ -93,7 +101,16 @@ export class NodeManagerComponent implements AfterViewInit {
   }
 
   removeEdge() {
-    this.netService.removeEdge(this.node1, this.node2);
+    this.quantumService.removeEdge(this.node1, this.node2).subscribe({
+      next: response => {
+        console.log(response);
+        console.log("Removing edge between", this.node1, "and", this.node2);
+        this.netService.removeEdge(this.node1, this.node2);
+      },
+      error: error => {
+        console.error('There was an error!', error);
+      }
+    });
   }
 
   isEdgeValid(node1: string, node2: string, cost: number): boolean {
@@ -107,6 +124,7 @@ export class NodeManagerComponent implements AfterViewInit {
         console.log('Entanglement path:', response.path);
         console.log('EPR pairs:', response.epr_pairs);
         console.log('Entanglement swaps:', response.entanglement_swaps);
+        this.netService.highlightPath(response.path);
       },
       error: error => {
         console.error('Error requesting entanglement:', error);

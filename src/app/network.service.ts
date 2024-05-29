@@ -22,12 +22,14 @@ export class NetworkService {
   private edgeSubject = new Subject<EdgeData>();
   private modifyEdgeSubject = new Subject<EdgeData>();
   private removeEdgeSubject = new Subject<{ source: string, target: string }>();
+  private highlightPathSubject = new Subject<string[]>();
 
   nodeObservable$ = this.nodeSubject.asObservable();
   removeNodeObservable$ = this.removeNodeSubject.asObservable();
   edgeObservable$ = this.edgeSubject.asObservable();
   modifyEdgeObservable$ = this.modifyEdgeSubject.asObservable();
   removeEdgeObservable$ = this.removeEdgeSubject.asObservable();
+  highlightPathObservable$ = this.highlightPathSubject.asObservable();
 
   private nodes: NodeData[] = [];
   private edges: EdgeData[] = [];
@@ -69,6 +71,14 @@ export class NetworkService {
     this.edges = this.edges.filter(e => !(this.areNodesEqual(e.source, source) && this.areNodesEqual(e.target, target)));
     this.edges = this.edges.filter(e => !(this.areNodesEqual(e.source, target) && this.areNodesEqual(e.target, source)));
     this.removeEdgeSubject.next({ source, target });
+  }
+
+  highlightPath(path: string[]) {
+    this.highlightPathSubject.next(path);
+  }
+
+  requestEntanglement(endpoint1: string, endpoint2: string): Observable<any> {
+    return this.http.post('/request_entanglement', { endpoint1, endpoint2 });
   }
 
   getShortestPathCost(node1: string, node2: string): number | null {
