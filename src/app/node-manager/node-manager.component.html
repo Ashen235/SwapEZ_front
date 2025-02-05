@@ -1,4 +1,5 @@
 <div class="node-manager">
+  <!-- Node Controls -->
   <div>
     <label for="nodeId">Node ID:</label>
     <input id="nodeId" [(ngModel)]="nodeId" />
@@ -13,6 +14,7 @@
   <button (click)="addNode()">Add Node</button>
   <button (click)="removeNode()">Remove Node</button>
   
+  <!-- Edge Controls -->
   <div>
     <label for="node1">Node 1:</label>
     <input id="node1" [(ngModel)]="node1" />
@@ -25,11 +27,11 @@
     <label for="edgeCost">Edge Cost:</label>
     <input id="edgeCost" type="number" [(ngModel)]="edgeCost" />
   </div>
-  
   <button (click)="addEdge()">Add Edge</button>
   <button (click)="modifyEdge()">Modify Edge</button>
   <button (click)="removeEdge()">Remove Edge</button>
 
+  <!-- Entanglement Request -->
   <div>
     <label for="endpoint1">Endpoint 1:</label>
     <input id="endpoint1" [(ngModel)]="endpoint1" />
@@ -39,5 +41,16 @@
     <input id="endpoint2" [(ngModel)]="endpoint2" />
   </div>
   <button (click)="requestEntanglement()">Request Entanglement</button>
-  
+
+  <!-- Import/Export / Clear Controls -->
+  <div>
+    <button (click)="exportNetwork()">Export Network Configuration</button>
+  </div>
+  <div>
+    <label for="importConfig">Import Network Configuration:</label>
+    <input id="importConfig" type="file" (change)="importNetwork($event)" />
+  </div>
+  <div>
+    <button (click)="clearNetwork()">Clear Current Network</button>
+  </div>
 </div>

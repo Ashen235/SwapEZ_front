@@ -64,4 +64,16 @@ export class QuantumService {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.post(`${this.apiUrl}/request_entanglement`, { endpoint1, endpoint2 }, { headers });
   }
+
+  clearNetwork(): Observable<any> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    // DELETE method for clearing the network.
+    return this.http.delete(`${this.apiUrl}/clear_network`, { headers });
+  }
+
+  importNetwork(configStr: string): Observable<any> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    const config = JSON.parse(configStr);
+    return this.http.post(`${this.apiUrl}/import_network`, config, { headers });
+  }
 }
